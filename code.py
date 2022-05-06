@@ -21,10 +21,6 @@ from sklearn.multiclass import OneVsRestClassifier,OneVsOneClassifier
 images = os.listdir("D:/PDF/3rd year/Second term/machine learning/dog-cat-classification/dataset")
 # print(images)
 
-print(type(images))
-print(images[0])
-im=images[0].replace("cat.", "cat")
-print(im)
 photos =[]
 labels =[]
 features = []
@@ -64,6 +60,7 @@ print(x_test)
 
 print(y_test)
 sum = 0
+#to know number of dogs in test data
 for i in y_test:
     if i ==1:
         sum=sum+1
@@ -71,70 +68,23 @@ print(sum)
 
 
 
-svm_kernel_ovo = OneVsOneClassifier(SVC(kernel='linear', C=1)).fit(x_train, y_train)
-svm_kernel_ovr = OneVsRestClassifier(SVC(kernel='linear', C=1)).fit(x_train, y_train)
+svm_kernel_ovo = OneVsOneClassifier(SVC(kernel='linear', C=0.01)).fit(x_train, y_train)
+svm_kernel_ovr = OneVsRestClassifier(SVC(kernel='linear', C=0.01)).fit(x_train, y_train)
 
-svm_linear_ovo = OneVsOneClassifier(LinearSVC(C=1),).fit(x_train, y_train)
-svm_linear_ovr = OneVsRestClassifier(LinearSVC(C=1)).fit(x_train, y_train)
-
-
+svm_linear_ovo = OneVsOneClassifier(LinearSVC(C=0.01),).fit(x_train, y_train)
+svm_linear_ovr = OneVsRestClassifier(LinearSVC(C=0.01)).fit(x_train, y_train)
 
 
-accuracy = svm_kernel_ovr.score(x_test, y_test)
-print('Linear Kernel OneVsRest SVM accuracy: ' + str(accuracy))
+
+
 accuracy = svm_kernel_ovo.score(x_test, y_test)
-print('Linear Kernel OneVsOne SVM accuracy: ' + str(accuracy))
+print('Linear Kernel OneVsOne SVM accuracy for test data: ' + str(accuracy))
 
-# model accuracy for svc model
-accuracy = svm_linear_ovr.score(x_test, y_test)
-print('LinearSVC OneVsRest SVM accuracy: ' + str(accuracy))
+accuracy = svm_kernel_ovo.score(x_train, y_train)
+print('Linear Kernel OneVsOne SVM accuracy for train data: ' + str(accuracy))
+
 accuracy = svm_linear_ovo.score(x_test, y_test)
-print('LinearSVC OneVsOne SVM accuracy: ' + str(accuracy))
+print('LinearSVC OneVsOne SVM accuracy for test data: ' + str(accuracy))
 
-
-
-
-
-
-# for i in images:
-# 	# define subplot
-#     pyplot.subplot(330 + 1 + )
-# 	# define filename
-# 	filename = 'dataset/'+i
-# 	# load image pixels
-# 	image = imread(filename)
-# 	# plot raw pixel data
-# 	pyplot.imshow(image)
-# # show the figure
-# pyplot.show()
-# for img in images:
-#     filename = 'dataset/'+
-# 	# load image pixels
-# 	imge = imread(filename)
-#     resized_img = resize(imge, (128,64)) 
-#     imshow(resized_img) 
-#     print(resized_img.shape)
-# for img in images:
-# for i in range(9):
-# 	# define subplot
-# 	pyplot.subplot(330 + 1 + i)
-# 	# define filename
-# 	filename = 'dataset/cat.' + str(i) + '.jpg'
-# 	# load image pixels
-# 	image = imread(filename)
-#     resized_img = resize(image, (128,64)) 
-#     imshow(resized_img) 
-# 	# plot raw pixel data
-# 	pyplot.imshow(image)
-# # show the figure
-# pyplot.show()
-#     if img.startswith('dog'):
-#         print(img)
-	# convert to numpy array
-# 	photo = img_to_array(photo)
-# img = imread(im)
-# imshow(img)
-# print(img.shape)
-
-# resizedImage = resize(images,(128,64))
-
+accuracy = svm_linear_ovo.score(x_train, y_train)
+print('LinearSVC OneVsOne SVM accuracy for train data: ' + str(accuracy))
